@@ -6,6 +6,7 @@ import com.bgy.netty.session.UserSession;
 import com.bgy.netty.utils.Pair;
 import com.bgy.netty.utils.SessionUtil;
 import io.netty.channel.Channel;
+import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.channel.group.ChannelGroup;
@@ -17,7 +18,14 @@ import java.util.List;
  * @author bgy
  * @date 2020/1/16 23:35
  */
+@ChannelHandler.Sharable
 public class ListMembersRequestHandler extends SimpleChannelInboundHandler<ListMembersRequestPacket> {
+    public static final ListMembersRequestHandler INSTANCE = new ListMembersRequestHandler();
+
+    private ListMembersRequestHandler() {
+
+    }
+
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, ListMembersRequestPacket listMembersRequestPacket) throws Exception {
         String groupId = listMembersRequestPacket.getGroupId();

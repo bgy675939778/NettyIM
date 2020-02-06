@@ -4,6 +4,7 @@ import com.bgy.netty.protocol.request.JoinGroupRequestPacket;
 import com.bgy.netty.protocol.response.JoinGroupResponsePacket;
 import com.bgy.netty.session.UserSession;
 import com.bgy.netty.utils.SessionUtil;
+import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.channel.group.ChannelGroup;
@@ -12,7 +13,14 @@ import io.netty.channel.group.ChannelGroup;
  * @author bgy
  * @date 2020/1/21 22:02
  */
+@ChannelHandler.Sharable
 public class JoinGroupRequestHandler extends SimpleChannelInboundHandler<JoinGroupRequestPacket> {
+    public static final JoinGroupRequestHandler INSTANCE = new JoinGroupRequestHandler();
+
+    private JoinGroupRequestHandler() {
+
+    }
+
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, JoinGroupRequestPacket joinGroupRequestPacket) throws Exception {
         String groupId = joinGroupRequestPacket.getGroupId();

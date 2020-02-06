@@ -3,8 +3,7 @@ package com.bgy.netty.client;
 import com.bgy.netty.client.command.ConsoleCommand;
 import com.bgy.netty.client.command.ConsoleCommandFactory;
 import com.bgy.netty.client.handler.*;
-import com.bgy.netty.codec.PacketDecoder;
-import com.bgy.netty.codec.PacketEncoder;
+import com.bgy.netty.codec.PacketCodec;
 import com.bgy.netty.codec.Unpacker;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.*;
@@ -40,7 +39,7 @@ public class NettyClient {
                         ChannelPipeline pipeline = ch.pipeline();
                         pipeline
                                 .addLast(new Unpacker())
-                                .addLast(new PacketDecoder())
+                                .addLast(PacketCodec.INSTANCE)
                                 .addLast(new LoginResponseHandler())
                                 .addLast(new SingleChatResponseHandler())
                                 .addLast(new CreateGroupResponseHandler())
@@ -48,8 +47,7 @@ public class NettyClient {
                                 .addLast(new ListMembersResponseHandler())
                                 .addLast(new JoinGroupResponseHandler())
                                 .addLast(new QuitGroupResponseHandler())
-                                .addLast(new LogoutResponseHandler())
-                                .addLast(new PacketEncoder());
+                                .addLast(new LogoutResponseHandler());
                     }
                 });
         connect(bootstrap, HOST, PORT, MAX_RETRY);

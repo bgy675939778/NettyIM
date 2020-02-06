@@ -5,6 +5,7 @@ import com.bgy.netty.protocol.response.SingleChatResponsePacket;
 import com.bgy.netty.session.UserSession;
 import com.bgy.netty.utils.SessionUtil;
 import io.netty.channel.Channel;
+import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 
@@ -12,7 +13,14 @@ import io.netty.channel.SimpleChannelInboundHandler;
  * @author bgy
  * @date 2020/1/15 0:06
  */
+@ChannelHandler.Sharable
 public class SingleChatRequestHandler extends SimpleChannelInboundHandler<SingleChatRequestPacket> {
+    public static final SingleChatRequestHandler INSTANCE = new SingleChatRequestHandler();
+
+    private SingleChatRequestHandler() {
+
+    }
+
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, SingleChatRequestPacket singleChatRequestPacket) throws Exception {
         //发送方的session

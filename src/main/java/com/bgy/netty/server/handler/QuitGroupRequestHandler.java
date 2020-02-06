@@ -4,6 +4,7 @@ import com.bgy.netty.protocol.request.QuitGroupRequestPacket;
 import com.bgy.netty.protocol.response.QuitGroupResponsePacket;
 import com.bgy.netty.session.UserSession;
 import com.bgy.netty.utils.SessionUtil;
+import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.channel.group.ChannelGroup;
@@ -12,7 +13,14 @@ import io.netty.channel.group.ChannelGroup;
  * @author bgy
  * @date 2020/1/21 22:50
  */
+@ChannelHandler.Sharable
 public class QuitGroupRequestHandler extends SimpleChannelInboundHandler<QuitGroupRequestPacket> {
+    public static final QuitGroupRequestHandler INSTANCE = new QuitGroupRequestHandler();
+
+    private QuitGroupRequestHandler() {
+
+    }
+
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, QuitGroupRequestPacket quitGroupRequestPacket) throws Exception {
         String groupId = quitGroupRequestPacket.getGroupId();

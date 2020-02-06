@@ -1,6 +1,6 @@
 package com.bgy.netty;
 
-import com.bgy.netty.codec.PacketCodec;
+import com.bgy.netty.codec.PacketCodecUtil;
 import com.bgy.netty.protocol.AbstractPacket;
 import com.bgy.netty.protocol.request.LoginRequestPacket;
 import io.netty.buffer.ByteBuf;
@@ -16,17 +16,16 @@ class NettyApplicationTests {
     }
 
     @Test
-    public void decodeAndEncode(){
+    public void decodeAndEncode() {
         LoginRequestPacket loginRequestPacket = new LoginRequestPacket();
         loginRequestPacket.setUserName("a");
         loginRequestPacket.setPassword("b");
 
-        PacketCodec packetCodec = new PacketCodec();
         ByteBuf byteBuf = ByteBufAllocator.DEFAULT.ioBuffer();
 
-        packetCodec.encode(byteBuf,loginRequestPacket);
+        PacketCodecUtil.INSTANCE.encode(byteBuf, loginRequestPacket);
 
-        AbstractPacket abstractPacket = packetCodec.decode(byteBuf);
+        AbstractPacket abstractPacket = PacketCodecUtil.INSTANCE.decode(byteBuf);
 
         System.out.println(abstractPacket);
     }
