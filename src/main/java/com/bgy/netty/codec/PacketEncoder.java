@@ -10,14 +10,14 @@ import io.netty.handler.codec.MessageToByteEncoder;
  * @date 2020/1/14 0:18
  */
 public class PacketEncoder extends MessageToByteEncoder<AbstractPacket> {
-    private PacketCodec packetCodec;
+    private PacketCodecUtil packetCodecUtil;
 
     public PacketEncoder() {
-        packetCodec = new PacketCodec();
+        packetCodecUtil = new PacketCodecUtil();
     }
 
     @Override
     protected void encode(ChannelHandlerContext ctx, AbstractPacket abstractPacket, ByteBuf out) throws Exception {
-        packetCodec.encode(out, abstractPacket);
+        packetCodecUtil.encode(out, abstractPacket);
     }
 }

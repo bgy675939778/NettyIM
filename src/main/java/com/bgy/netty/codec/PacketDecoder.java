@@ -2,7 +2,6 @@ package com.bgy.netty.codec;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
-import io.netty.handler.codec.MessageToMessageCodec;
 import io.netty.handler.codec.MessageToMessageDecoder;
 
 import java.util.List;
@@ -12,14 +11,14 @@ import java.util.List;
  * @date 2020/1/14 0:15
  */
 public class PacketDecoder extends MessageToMessageDecoder<ByteBuf> {
-    private PacketCodec packetCodec;
+    private PacketCodecUtil packetCodecUtil;
 
     public PacketDecoder() {
-        packetCodec = new PacketCodec();
+        packetCodecUtil = new PacketCodecUtil();
     }
 
     @Override
     protected void decode(ChannelHandlerContext ctx, ByteBuf in, List out) throws Exception {
-        out.add(packetCodec.decode(in));
+        out.add(packetCodecUtil.decode(in));
     }
 }

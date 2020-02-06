@@ -15,7 +15,7 @@ public class SingleChatResponseHandler extends SimpleChannelInboundHandler<Singl
         if (singleChatResponsePacket.getFromUserId() != null) {
             String fromUserId = singleChatResponsePacket.getFromUserId();
             String fromUserName = singleChatResponsePacket.getFromUserName();
-            System.out.println(fromUserName + "(" + fromUserId + ") 说: " + message);
+            System.out.println(fromUserName + "(" + fromUserId + ") 对你说: " + message);
         } else {
             System.err.println(message);
         }

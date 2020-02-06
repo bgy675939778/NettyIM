@@ -1,6 +1,6 @@
 package com.bgy.netty.server;
 
-import com.bgy.netty.codec.PacketCodecHandler;
+import com.bgy.netty.codec.PacketCodec;
 import com.bgy.netty.codec.Unpacker;
 import com.bgy.netty.server.handler.*;
 import io.netty.bootstrap.ServerBootstrap;
@@ -35,7 +35,7 @@ public class NettyServer {
                         ChannelPipeline pipeline = ch.pipeline();
                         pipeline
                                 .addLast(new Unpacker())
-                                .addLast(new PacketCodecHandler())
+                                .addLast(new PacketCodec())
                                 .addLast(new LoginRequestHandler())
                                 .addLast(new SingleChatRequestHandler())
                                 .addLast(new CreateGroupRequestHandler())
