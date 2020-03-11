@@ -11,6 +11,8 @@ import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
+import io.netty.handler.logging.LogLevel;
+import io.netty.handler.logging.LoggingHandler;
 
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
@@ -32,13 +34,17 @@ public class NettyClient {
                 .group(workerGroup)
                 .channel(NioSocketChannel.class)
                 .option(ChannelOption.CONNECT_TIMEOUT_MILLIS, 5000)
+                // 测试TCP链接的状态，如果在两小时内没有数据的通信时，TCP会自动发送一个活动探测数据报文；childOption
                 .option(ChannelOption.SO_KEEPALIVE, true)
+                // 是否启动Nagle算法（将小的碎片数据连接成更大的报文来提高发送效率，
+                // 虽然该方式有效提高网络的发送效率，但是却造成了延时），默认关闭；childOption
                 .option(ChannelOption.TCP_NODELAY, true)
                 .handler(new ChannelInitializer<SocketChannel>() {
                     @Override
                     protected void initChannel(SocketChannel ch) throws Exception {
                         ChannelPipeline pipeline = ch.pipeline();
                         pipeline
+                                .addLast(new LoggingHandler(LogLevel.INFO))
                                 .addLast(new Unpacker())
                                 .addLast(new PacketDecoder())
                                 .addLast(new LoginResponseHandler())
