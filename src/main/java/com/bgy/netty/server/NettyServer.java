@@ -36,6 +36,8 @@ public class NettyServer {
                         pipeline
                                 .addLast(new Unpacker())
                                 .addLast(PacketCodec.INSTANCE)
+                                .addLast(LoginRequestHandler.INSTANCE)
+                                .addLast(AuthHandler.INSTANCE)
                                 .addLast(IMHandler.INSTANCE);
                     }
                 });

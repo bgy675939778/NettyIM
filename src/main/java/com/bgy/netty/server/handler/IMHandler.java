@@ -23,7 +23,6 @@ public class IMHandler extends SimpleChannelInboundHandler<AbstractPacket> {
     private IMHandler() {
         handlerMap = new HashMap<>();
 
-        handlerMap.put(LOGIN_REQUEST, LoginRequestHandler.INSTANCE);
         handlerMap.put(SINGLE_MESSAGE_REQUEST, SingleChatRequestHandler.INSTANCE);
         handlerMap.put(CREATE_GROUP_REQUEST, CreateGroupRequestHandler.INSTANCE);
         handlerMap.put(GROUP_MESSAGE_REQUEST, GroupChatRequestHandler.INSTANCE);
